@@ -23,6 +23,7 @@ public class Main {
 
                     break;
                 case 2:
+                    //로그인/ 게임시작
 
                     break;
                 case 3:
