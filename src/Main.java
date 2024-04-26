@@ -30,11 +30,10 @@ public class Main {
                     break;
                 case 2:
                     //로그인/ 게임시작
-
+                    AccountManager.TryLogin();
                     break;
                 case 3:
                     // 아이디/비밀번호 찾기
-
 
                     break;
                 case 4:
