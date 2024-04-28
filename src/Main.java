@@ -6,6 +6,17 @@ import java.nio.file.Paths;
 import java.util.Scanner;
 
 public class Main {
+    //숫자인지 판별
+    public static boolean isInteger(String input) {
+        try {
+            Integer.parseInt(input);
+            return true;
+        }
+        catch (NumberFormatException e) {
+            return false;
+        }
+    }
+
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
 
@@ -20,8 +31,16 @@ public class Main {
             System.out.println("☁︎        4. 게임 종료                   ☁︎");
             System.out.println("☁︎☁︎☁︎☁︎☁︎☁︎☁︎☁︎☁︎☁︎☁︎☁︎☁︎☁︎☁︎☁︎☁︎☁︎☁︎☁︎☁︎☁︎☁︎☁︎");
             System.out.print(">> ");
-            int menuNum = Integer.parseInt(sc.nextLine());
-            System.out.println(menuNum);
+            String inputString = null;
+            while(true) {
+                inputString = sc.nextLine();
+                boolean isInt = isInteger(inputString);
+//                System.out.println(isInt);
+                if (isInt) break;
+                else System.out.println("☁︎     숫자를 입력하세요.");
+            }
+            int menuNum = Integer.parseInt(inputString);
+
             switch (menuNum) {
                 case 1:
                     //회원 가입
@@ -38,11 +57,11 @@ public class Main {
                     break;
                 case 4:
                     //종료
-                    System.out.println("종료합니다");
+                    System.out.println("☁︎     종료합니다");
                     System.exit(0);
 
                 default:
-                    System.out.println("메뉴를 잘못 선택했어요");
+                    System.out.println("☁︎     메뉴를 잘못 선택했어요\n☁︎     다시 입력해주세요.");
                     break;
 
             }
