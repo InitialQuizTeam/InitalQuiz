@@ -125,7 +125,7 @@ public class AccountManager {
                         }
                     } //<-- 아이디 중복 검사
 
-               if(gameId!=""){
+                    if (gameId != "") {
                         System.out.println("☁︎     아이디를 사용하실 수 있습니다~!");
                         break;
                     }
@@ -254,25 +254,24 @@ public class AccountManager {
                 else {
                     //아이디 null 아닐때
                     //아이디 검사
-                    boolean id_Check =false;
+                    boolean id_Check = false;
                     for (User user : userList) {
 //                        System.out.println(user.getGameId());
-                      if(gameId.equals(user.getGameId())) {
-                          System.out.println("☁︎☁︎☁︎☁︎☁︎☁︎☁︎☁︎☁︎☁︎☁︎☁︎☁︎☁︎☁︎☁︎☁︎☁︎☁︎☁︎☁︎☁︎☁︎☁︎");
-                          System.out.println("☁︎     아이디가 확인되었습니다.");
-                          System.out.println("☁︎☁︎☁︎☁︎☁︎☁︎☁︎☁︎☁︎☁︎☁︎☁︎☁︎☁︎☁︎☁︎☁︎☁︎☁︎☁︎☁︎☁︎☁︎☁︎");
-                          id_Check = true;
+                        if (gameId.equals(user.getGameId())) {
+                            System.out.println("☁︎☁︎☁︎☁︎☁︎☁︎☁︎☁︎☁︎☁︎☁︎☁︎☁︎☁︎☁︎☁︎☁︎☁︎☁︎☁︎☁︎☁︎☁︎☁︎");
+                            System.out.println("☁︎     아이디가 확인되었습니다.");
+                            System.out.println("☁︎☁︎☁︎☁︎☁︎☁︎☁︎☁︎☁︎☁︎☁︎☁︎☁︎☁︎☁︎☁︎☁︎☁︎☁︎☁︎☁︎☁︎☁︎☁︎");
+                            id_Check = true;
                             break;
                         }
                     }
                     if (id_Check) {
                         break;
-                    }else{
+                    } else {
                         System.out.println("☁︎☁︎☁︎☁︎☁︎☁︎☁︎☁︎☁︎☁︎☁︎☁︎☁︎☁︎☁︎☁︎☁︎☁︎☁︎☁︎☁︎☁︎☁︎☁︎");
                         System.out.println("☁︎     아이디가 없어요.다시 확인해주세요.");
                         System.out.println("☁︎☁︎☁︎☁︎☁︎☁︎☁︎☁︎☁︎☁︎☁︎☁︎☁︎☁︎☁︎☁︎☁︎☁︎☁︎☁︎☁︎☁︎☁︎☁︎");
                     }
-
 
 
                     //아예 없으면 다시 나가도록
@@ -308,5 +307,87 @@ public class AccountManager {
         }
     }//end TryLogin
 
+    //비밀번호 찾기
+    public static void tryGetPassword() {
+        String gameId = null;   //게임 아이디
+        String password = null; //비밀번호
 
-} //end class
+        //접근할 파일 위치 지정 : targetPath: memberList.txt
+        try (FileReader fr = new FileReader(targetPath)) {
+            //읽는 방법 = 2
+            //보조스트링 활용
+            //텍스트를 라인 단위로 읽어들이는 보조 스트림
+            BufferedReader br = new BufferedReader(fr);
+
+            //회원 정보 저장할 리스트 생성
+            List<User> userList = new ArrayList<>();
+
+            while (true) {
+                String s = br.readLine();
+                if (s == null) break;
+
+                //읽는 방법 = 1
+//            int read = fr.read();
+//            System.out.println("(char)read = " + (char)read);
+                //파일 생성 명령
+                //읽은 것을 콤마로 구분하여 분리하여 배열로 만든다
+                String[] split = s.split(",");
+//                System.out.println(Arrays.toString(split));
+
+                // 읽어들인 회원정보로 회원 객체 생성
+                User user = new User(
+                        split[0],                     //id
+                        split[1],                    //memberName
+                        split[2],                    //password
+                        Integer.parseInt(split[3]),  //score
+                        Integer.parseInt(split[4]),  //Life
+                        Integer.parseInt(split[5])   //hint
+                );
+                userList.add(user);
+            }
+            //데이터 뿌려주기 (테스트용)
+//            System.out.println(userList);
+            //====================================
+            //로그인 Try
+            //====================================
+            System.out.println("☁︎☁︎☁︎☁︎☁︎☁︎☁︎☁︎☁︎☁︎☁︎☁︎☁︎☁︎☁︎☁︎☁︎☁︎☁︎☁︎☁︎☁︎☁︎☁︎");
+            for (; ; ) {
+                System.out.print("☁︎     찾고싶은 아이디를 입력하세요: ");
+                gameId = sc.nextLine();
+                if (gameId.equals("") || gameId == null) System.out.println("☁︎     아이디를 다시 입력하세요.");
+                else {
+                    //아이디 null 아닐때
+                    //아이디 검사
+                    boolean id_Check = false;
+                    for (User user : userList) {
+//                        System.out.println(user.getGameId());
+                        if (gameId.equals(user.getGameId())) {
+                            System.out.println("☁︎☁︎☁︎☁︎☁︎☁︎☁︎☁︎☁︎☁︎☁︎☁︎☁︎☁︎☁︎☁︎☁︎☁︎☁︎☁︎☁︎☁︎☁︎☁︎");
+                            System.out.println("☁︎     아이디가 확인되었습니다.");
+                            System.out.println("☁︎☁︎☁︎☁︎☁︎☁︎☁︎☁︎☁︎☁︎☁︎☁︎☁︎☁︎☁︎☁︎☁︎☁︎☁︎☁︎☁︎☁︎☁︎☁︎");
+                            System.out.println(user.getUserName());
+                            System.out.println(user.getPassWord());
+                            id_Check = true;
+                            break;
+                        }
+                    }
+                    if (id_Check) {
+                        break;
+                    } else {
+                        System.out.println("☁︎☁︎☁︎☁︎☁︎☁︎☁︎☁︎☁︎☁︎☁︎☁︎☁︎☁︎☁︎☁︎☁︎☁︎☁︎☁︎☁︎☁︎☁︎☁︎");
+                        System.out.println("☁︎     아이디가 없어요.다시 확인해주세요.");
+                        System.out.println("☁︎☁︎☁︎☁︎☁︎☁︎☁︎☁︎☁︎☁︎☁︎☁︎☁︎☁︎☁︎☁︎☁︎☁︎☁︎☁︎☁︎☁︎☁︎☁︎");
+                    }
+
+
+                    //아예 없으면 다시 나가도록
+                }
+            }
+
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    } //end tryGetPassword
+}   //end class
