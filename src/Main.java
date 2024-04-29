@@ -52,8 +52,8 @@ public class Main {
                     AccountManager.TryLogin();
                     break;
                 case 3:
-                    // 아이디/비밀번호 찾기
-
+                    // 비밀번호 찾기
+                    AccountManager.tryGetPassword();
                     break;
                 case 4:
                     //종료
